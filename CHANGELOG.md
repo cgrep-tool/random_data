@@ -1,3 +1,7 @@
+## 1.5.4
+
++ Harmonized DoubleGen signature
+
 ## 1.5.2
 
 + String generator

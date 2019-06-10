@@ -9,8 +9,9 @@ class DoubleGen extends Generator<double> {
 
   DoubleGen._(this.min, this.max, this._random);
 
-  factory DoubleGen(double min, double max, Random random) {
-    return DoubleGen._(min ?? 0, max ?? pow(2, 32).toDouble(), random);
+  factory DoubleGen(double min, double max, {Random random}) {
+    return DoubleGen._(
+        min ?? 0, max ?? pow(2, 32).toDouble(), random ?? Random());
   }
 
   double next() {
