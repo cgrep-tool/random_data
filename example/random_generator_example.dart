@@ -1,3 +1,3 @@
-import 'package:random_generator/random_generator.dart';
+import 'package:random_data/random_data.dart';
 
 main() {}
