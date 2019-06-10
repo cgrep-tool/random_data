@@ -1,14 +1,15 @@
 part of 'base.dart';
 
-class DurationGen implements Generator<Duration> {
+class DurationGen extends Generator<Duration> {
   final Duration min;
 
   final Duration max;
 
   IntGen _internal;
 
-  DurationGen(this.min, this.max, Random random) {
-    _internal = IntGen(min.inMicroseconds, max.inMicroseconds, random);
+  DurationGen(this.min, this.max, {Random random}) {
+    _internal = IntGen(min.inMicroseconds, max.inMicroseconds,
+        random: random ?? Random());
   }
 
   Duration next() {

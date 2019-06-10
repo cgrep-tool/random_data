@@ -1,17 +1,88 @@
 part of 'base.dart';
 
-class CharSel {
+class CharGen extends Generator<String> {
+  final CharRanges ranges;
+
+  IntGen _internal;
+
+  CharGen(this.ranges, {Random random}) {
+    _internal = IntGen(0, ranges.total - 1, random: random ?? Random());
+  }
+
+  factory CharGen.alpha({Random random}) {
+    return CharGen(CharRanges.alpha(), random: random);
+  }
+
+  factory CharGen.numeric({Random random}) {
+    return CharGen(CharRanges.numeric(), random: random);
+  }
+
+  factory CharGen.alphaNumeric({Random random}) {
+    return CharGen(CharRanges.alphaNumeric(), random: random);
+  }
+
+  factory CharGen.alphaLow({Random random}) {
+    return CharGen(CharRanges.alphaLow(), random: random);
+  }
+
+  factory CharGen.alphaHigh({Random random}) {
+    return CharGen(CharRanges.alphaHigh(), random: random);
+  }
+
+  @override
+  String next() {
+    int index = _internal.next();
+
+    int curIndex = 0;
+    for (IntRange range in ranges.ranges) {
+      if (index < (curIndex + range.length)) {
+        return String.fromCharCode(range.min + (index - curIndex));
+      }
+      curIndex += range.length;
+    }
+
+    throw Exception("Index out of range");
+  }
+
+  @override
+  bool get isMinLessThanEqualMax => true;
+
+  @override
+  String get type => "String";
+}
+
+class CharRanges {
   final List<IntRange> ranges;
 
   int _total;
 
   int get total => _total;
 
-  CharSel(this.ranges) {
+  CharRanges(this.ranges) {
     _total = ranges.fold(0, (int p, r) => p + r.length);
   }
 
-  static CharSel fromSpec(String spec) {
+  factory CharRanges.alpha() {
+    return CharRanges([IntRange(65, 90), IntRange(97, 122)]);
+  }
+
+  factory CharRanges.numeric() {
+    return CharRanges([IntRange(48, 57)]);
+  }
+
+  factory CharRanges.alphaNumeric() {
+    return CharRanges([IntRange(65, 90), IntRange(97, 122), IntRange(48, 57)]);
+  }
+
+  factory CharRanges.alphaLow() {
+    return CharRanges([IntRange(97, 122)]);
+  }
+
+  factory CharRanges.alphaHigh() {
+    return CharRanges([IntRange(65, 90)]);
+  }
+
+  static CharRanges fromSpec(String spec) {
     final parts = spec.split(',');
 
     final ranges = <IntRange>[];
@@ -38,39 +109,8 @@ class CharSel {
       ranges.add(IntRange(start, end));
     }
 
-    return CharSel(ranges);
+    return CharRanges(ranges);
   }
-}
-
-class CharGen implements Generator<String> {
-  final CharSel sel;
-
-  IntGen _internal;
-
-  CharGen(this.sel, Random random) {
-    _internal = IntGen(0, sel.total, random);
-  }
-
-  @override
-  String next() {
-    int index = _internal.next();
-
-    int curIndex = 0;
-    for (IntRange range in sel.ranges) {
-      if (index < (curIndex + range.length)) {
-        return String.fromCharCode(range.min + (index - curIndex));
-      }
-      curIndex += range.length;
-    }
-
-    throw Exception("Index out of range");
-  }
-
-  @override
-  bool get isMinLessThanEqualMax => true;
-
-  @override
-  String get type => "String";
 }
 
 class Range<T> {

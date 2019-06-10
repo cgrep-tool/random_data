@@ -1,6 +1,6 @@
 part of 'base.dart';
 
-class BoolGen implements Generator<bool> {
+class BoolGen extends Generator<bool> {
   Random _random;
 
   BoolGen(this._random);

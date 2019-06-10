@@ -1,3 +1,3 @@
-## 1.0.0
+## 1.5.1
 
-- Initial version, created by Stagehand
+- int, double, date, duration, oneof and char generators

@@ -1,12 +1,12 @@
 part of 'base.dart';
 
-class OneOfGen implements Generator<dynamic> {
+class OneOfGen extends Generator<dynamic> {
   final List<dynamic> options;
 
   IntGen _internal;
 
-  OneOfGen(this.options, Random random) {
-    _internal = IntGen(0, options.length - 1, random);
+  OneOfGen(this.options, {Random random}) {
+    _internal = IntGen(0, options.length - 1, random: random ?? Random());
   }
 
   @override

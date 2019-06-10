@@ -1,6 +1,6 @@
 part of 'base.dart';
 
-class DoubleGen implements Generator<double> {
+class DoubleGen extends Generator<double> {
   final double min;
 
   final double max;

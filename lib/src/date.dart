@@ -1,15 +1,15 @@
 part of 'base.dart';
 
-class DateTimeGen implements Generator<DateTime> {
+class DateTimeGen extends Generator<DateTime> {
   final DateTime min;
 
   final DateTime max;
 
   IntGen _internal;
 
-  DateTimeGen(this.min, this.max, Random random) {
-    _internal =
-        IntGen(min.microsecondsSinceEpoch, max.microsecondsSinceEpoch, random);
+  DateTimeGen(this.min, this.max, {Random random}) {
+    _internal = IntGen(min.microsecondsSinceEpoch, max.microsecondsSinceEpoch,
+        random: random ?? Random());
   }
 
   DateTime next() {
