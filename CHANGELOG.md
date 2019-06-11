@@ -1,3 +1,7 @@
+## 1.5.5
+
++ Added names, urls, phones, emails, countries, etc generators
+
 ## 1.5.4
 
 + Harmonized DoubleGen signature
