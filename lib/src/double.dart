@@ -28,7 +28,7 @@ class DoubleGen extends Generator<double> {
 
     final parts = str.split('.');
 
-    if (parts[2].length <= maxPrecision) return value;
+    if (parts[1].length <= maxPrecision) return value;
 
     return double.tryParse(
         parts[0] + '.' + parts[1].substring(0, maxPrecision));

@@ -1,3 +1,7 @@
+## 1.5.8
+
++ Bug fix
+
 ## 1.5.6
 
 + Added maxPrecision to double generator

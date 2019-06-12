@@ -1,6 +1,6 @@
 name: random_data
 description: Generates random numbers, dates, strings, characters, names, durations, etc.
-version: 1.5.6
+version: 1.5.8
 homepage: https://github.com/cgrep-tool/random_data
 author: Ravi Teja Gudapati <tejainece@gmail.com>
 
