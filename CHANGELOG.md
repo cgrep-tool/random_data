@@ -1,3 +1,7 @@
+## 1.5.6
+
++ Added maxPrecision to double generator
+
 ## 1.5.5
 
 + Added names, urls, phones, emails, countries, etc generators

@@ -5,18 +5,33 @@ class DoubleGen extends Generator<double> {
 
   final double max;
 
+  final int maxPrecision;
+
   Random _random;
 
-  DoubleGen._(this.min, this.max, this._random);
+  DoubleGen._(this.min, this.max, this.maxPrecision, this._random);
 
-  factory DoubleGen(double min, double max, {Random random}) {
-    return DoubleGen._(
-        min ?? 0, max ?? pow(2, 32).toDouble(), random ?? Random());
+  factory DoubleGen(double min, double max, {Random random, int maxPrecision}) {
+    return DoubleGen._(min ?? 0, max ?? pow(2, 32).toDouble(), maxPrecision,
+        random ?? Random());
   }
 
   double next() {
     if (max == min) return min;
-    return (_random.nextDouble() * (max - min)) + min;
+    final value = (_random.nextDouble() * (max - min)) + min;
+
+    if (maxPrecision == null) return value;
+
+    final str = value.toString();
+
+    if (str.contains('e')) return value;
+
+    final parts = str.split('.');
+
+    if (parts[2].length <= maxPrecision) return value;
+
+    return double.tryParse(
+        parts[0] + '.' + parts[1].substring(0, maxPrecision));
   }
 
   @override
