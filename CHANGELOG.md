@@ -1,3 +1,7 @@
+## 1.5.9
+
++ Removed maxPrecision on DoubleGen
+
 ## 1.5.8
 
 + Bug fix
